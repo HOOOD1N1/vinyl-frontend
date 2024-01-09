@@ -108,7 +108,6 @@ const GenreForm = ({setChecked, labelText, helperText, colorScheme}) => {
         <FormLabel as='legend' mb={5} style={{textAlign:"center"}}>{labelText}</FormLabel>
         <CheckboxGroup colorScheme={colorScheme} size='lg' style={{textAlign:"center"}}>
             <Stack spacing={[1,5]} direction={['column', 'row']}>
-            {showLeftArrow ? getLeftArrows() : null}
             {isLoading ?
             <Spinner
                 thickness='4px'
@@ -117,15 +116,22 @@ const GenreForm = ({setChecked, labelText, helperText, colorScheme}) => {
                 color='teal.500'
                 size='xl'
             />
-            : genres.map(genre => {
-                return (<Checkbox 
+            : <div style={{margin: "0 auto"}}>
+                {showLeftArrow ? getLeftArrows() : null}
+               { genres.map(genre => {
+                return (<div>
+                        <Checkbox 
                             value={genre.genre} 
                             key={genre.genre} 
                             onChange={(event) => {updateCheckedGenres(event.target.checked, event.target.value)}}>
                             {genre.genre}
-                        </Checkbox>)
-            })}
+                        </Checkbox>
+                        </div>)
+            }) 
+            }
             {showRightArrow ? getRightArrows() : null}
+            </div>
+            }
             </Stack>
         </CheckboxGroup>
         <FormHelperText mt={5} mb={10}>{helperText}</FormHelperText>
