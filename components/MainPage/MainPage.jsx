@@ -9,7 +9,7 @@ import YearSelector from "../YearSelector/YearSelector";
 function MainPage() {
     const pageSize = 10;
     const vinylsLimit = 100;
-    // const preferencesURL = "https://recommandationapi-374817.ew.r.appspot.com/recommendation/preferences";
+    // const preferencesURL = "";
 
     const [hasError, setErrors] = useState(false);
     const [vinyls, setVinyls] = useState([]);

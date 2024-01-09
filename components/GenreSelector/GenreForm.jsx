@@ -6,7 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
 const GenreForm = ({setChecked, labelText, helperText, colorScheme}) => {
     const pageSize = 5;
     const genreLimit = 50;
-    // const countURL = "https://recommandationapi-374817.ew.r.appspot.com/recommendation/count";
+    // const countURL = "";
 
     const [hasError, setErrors] = useState(false);
 

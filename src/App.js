@@ -7,6 +7,7 @@ import Login from '../components/Login/Login';
 import Playlists from '../components/Playlists/Playlists';
 import Profile from '../components/Profile/Profile';
 import NavBarController from '../components/NavBar/NavBarController';
+import VinylDetails from '../components/VinylDetails/VinylDetails';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
                     <Route exact path="login" element={<Login />}/>
                     <Route exact path="playlists/:userId" element={<Playlists />}/>
                     <Route exact path="profile/:userId" element={<Profile />}/>
+                    <Route exact path="/vinyl/:artist/:vinylName/" element={<VinylDetails />} />
                     
                 </Routes>
             </BrowserRouter>
