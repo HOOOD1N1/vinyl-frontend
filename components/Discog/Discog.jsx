@@ -1,8 +1,8 @@
 import React from "react";
 import { Stack, Button, Spinner } from "@chakra-ui/react";
-import ElementsList from "../components/ElementsList";
+import Elements from "../Elements/Elements";
 import { useState, useEffect } from "react";
-import defaultImage from "../assets/image.jpg";
+import defaultImage from "../../assets/image.jpg";
 import { useNavigate } from "react-router-dom"
 
 function Discog() {
@@ -101,7 +101,7 @@ function Discog() {
                         alignSelf={'center'}
                     />
                     :
-                    <ElementsList elements={elements} />
+                    <Elements elements={elements} />
                 : null
             }
         </Stack >

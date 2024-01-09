@@ -9,6 +9,7 @@ import Profile from '../components/Profile/Profile';
 import NavBarController from '../components/NavBar/NavBarController';
 import VinylDetails from '../components/VinylDetails/VinylDetails';
 import Discog from '../components/Discog/Discog';
+import Playlist from "../components/Playlist/Playlist";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
                     <Route exact path="profile/:userId" element={<Profile />}/>
                     <Route exact path="/vinyl/:artist/:vinylName/" element={<VinylDetails />} />
                     <Route exact path="/purchases" element={<Discog />} />
+                    <Route exact path="/playlist" element={<Playlist />} />
                     
                 </Routes>
             </BrowserRouter>
