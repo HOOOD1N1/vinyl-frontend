@@ -20,6 +20,10 @@ export default function NavBarLogged() {
             label: 'Profile',
             href: '/profile'
         },
+        {
+            label: 'Logout',
+            href: '/'
+        }
     ];
 
     return (

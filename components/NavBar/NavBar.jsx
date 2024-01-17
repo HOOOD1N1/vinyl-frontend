@@ -10,21 +10,29 @@ import {
 
 
 const NavBar = ({ items }) => {
+    
+    
+    const handleLogout = () => {
+    
+        sessionStorage.removeItem('token')
+        window.location.reload();
+    }
 
     const NavButtons = () => {
 
         return (
             <Stack direction={'row'} spacing={6} alignItems='flex-end'>
                 {items.map((navItem) => (
-
+                    
                     <Box key={navItem.label} width='fit-content'>
                         <Link href={navItem.href}>
                             <Button
                                 p={5}
                                 href={navItem.href ?? '/'}
+                                onClick={handleLogout}
                                 fontWeight={600}
                                 textAlign='center'
-                                colorScheme='orange'>
+                                colorScheme={navItem.label !== 'Logout' ? 'orange': 'red'}>
                                 {navItem.label}
                             </Button>
                         </Link>
