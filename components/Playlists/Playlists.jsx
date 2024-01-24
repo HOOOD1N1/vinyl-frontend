@@ -59,9 +59,61 @@ function Playlists() {
     //     }
     //   };
 
+    const getUserData = async () => {
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
+        }
+    }
+      const res = await fetch('https://api.spotify.com/v1/me', requestOptions);
+
+      const JsonRes = await res.json();
+      
+      // console.log("Res is ", await res.json())
+      sessionStorage.setItem('spotify_user_data', JSON.stringify({'display_name': JsonRes.display_name, 'user_id': JsonRes.id, 'uri': JsonRes.uri}))
+
+    }
+
+    const getUserPlaylists = async () => {
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
+        }
+      }
+        const res = await fetch(`https://api.spotify.com/v1/me/playlists`, requestOptions);
+
+        const JsonRes = await res.json();
+
+        console.log("playlists: ", JsonRes)
+
+    }
+
+    const getPlaylistTracklist = async (playlistId) => {
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
+        }
+      }
+        const res = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, requestOptions);
+
+        const JsonRes = await res.json();
+
+        console.log("playlists trackist: ", JsonRes)
+    }
+
     useEffect(() => {
       setIsUserAuth(getToken());
-  }, []);
+
+      getUserData();
+
+      getUserPlaylists();
+
+      // getPlaylistTracklist("");
+
+    }, []);
 
   function getToken() {
       const userLocalStorage = JSON.parse(localStorage.getItem('user'));

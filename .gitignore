@@ -1,6 +1,7 @@
 node_modules
 # Ignore environment variables and secrets
 .env
+/public/env.js
 
 # Ignore build folder
 /dist
