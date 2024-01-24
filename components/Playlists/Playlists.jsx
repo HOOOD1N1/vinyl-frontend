@@ -90,7 +90,7 @@ function Playlists() {
 
     }
 
-    const getPlaylistTracklist = async (playlistId) => {
+    const getPlaylistTracklist = async (c) => {
       const requestOptions = {
         method: 'GET',
         headers: {
@@ -102,6 +102,53 @@ function Playlists() {
         const JsonRes = await res.json();
 
         console.log("playlists trackist: ", JsonRes)
+    }
+
+    const getPlaylistImage = async(playlistId) => {
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
+        }
+      }
+        const res = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/images`, requestOptions);
+
+        const JsonRes = await res.json();
+
+        console.log("playlists image is: ", JsonRes)
+    }
+
+    const createPlaylist = async(name, description, publicState) => {
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
+        },
+        body: JSON.stringify({'name': name, 'description': description, 'public': publicState})
+      }
+
+      const res = await fetch(`https://api.spotify.com/v1/users/${JSON.parse(sessionStorage.getItem("spotify_user_data")).user_id}/playlists`, requestOptions);
+
+        const JsonRes = await res.json();
+
+        const newPlaylistName = JsonRes.id;
+
+        console.log("playlists trackist: ", JsonRes)
+
+    }
+
+    const addTrackToPlaylist = async(playlistId, spotifyUris) => {
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
+        },
+        body: JSON.stringify({'uris': spotifyUris, 'position': 0})
+      }
+
+      const res = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, requestOptions);
+
+        const JsonRes = await res.json();
     }
 
     useEffect(() => {
