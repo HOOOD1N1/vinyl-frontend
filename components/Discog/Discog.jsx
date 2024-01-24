@@ -56,32 +56,45 @@ function Discog() {
     //     getProfileData(user.sub)
     // }, []);
 
-    // const fetchData = async (e) => {
-    //     setRecomendationIsLoading(true)
-    //     const data = await fetch(``)
+    const fetchData = async (e) => {
+        setRecomendationIsLoading(true)
 
-    //     const vinylsJSON = await data.json()
-    //     const vinyls = vinylsJSON.results
+        const discogToken = JSON.parse(sessionStorage.getItem('discog_token'));
 
-    //     const albumArt = require('album-art')
+        const requestOptions = {
+            method: 'POST',
+            
+        }
 
-    //     for (let vinyl of vinyls) {
-    //         try {
-    //             const art = await albumArt(vinyl['artist'], {album: vinyl['vinyl']})
-    //             vinyl['imgPath'] = art
-    //         } catch (e) {
-    //             vinyl.imgPath = defaultImage;
-    //             console.log(e);
-    //         }
-    //     }
+        const data = await fetch(`http://127.0.0.1:8081/recommendation/discogs?discogsToken=${discogToken.userToken}&discogsTokenSecret=${discogToken.userTokenSecret}&pageNumber=4&numberOfItemsPerPage=1`,requestOptions)
 
-    //     setElements(vinyls)
-    //     setRecomendationIsLoading(false)
-    // };
+        const vinylsJSON = await data.json()
+        console.log('vinyls discog: ', vinylsJSON)
+        const vinyls = vinylsJSON.records
+
+        const albumArt = require('album-art')
+
+        for (let vinyl of vinyls) {
+            try {
+                const art = await albumArt(vinyl['artist'], {album: vinyl['vinyl']})
+                vinyl['imgPath'] = art
+            } catch (e) {
+                vinyl.imgPath = defaultImage;
+                console.log(e);
+            }
+        }
+
+        setElements(vinyls)
+        setRecomendationIsLoading(false)
+    };
 
 
     useEffect(() => {
         setIsUserAuth(getToken());
+
+        if(sessionStorage.getItem('discog_token')) {
+            setIsAvailableDiscogs(true);
+        }
     }, []);
 
     function getToken() {
@@ -110,7 +123,7 @@ function Discog() {
                 padding={'20px'}
                 width='30%'
                 alignSelf={'center'}
-                // onClick={isAvailableDiscogs ? () => { setShowVinyls(true); fetchData() } : () => {navigate('/profile')}}
+                onClick={isAvailableDiscogs ? () => { setShowVinyls(true); fetchData() } : () => {navigate('/profile')}}
             >
                {isAvailableDiscogs ? "Get recommandations based on Discog information" : "Connect to Discogs"}
             </Button>
