@@ -1,19 +1,24 @@
 import { Box, Flex } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import PlaylistCard from "../PlaylistCard/PlaylistCard";
 import "./VerticalLibrary.css";
 
 const VerticalLibrary = ({ elements }) => {
+    
     const ref = useRef(null);
+    let playlistStructureData = {};
 
     const scroll = (scrollOffset) => {
         if (!ref.current) return;
         ref.current.scrollLeft += scrollOffset;
     };
 
-    console.log("ELEMENTS ARE: ", elements)
+    useEffect(() => {
+        console.log("ELEMENTS ARE: ", elements)
 
-    let playlistStructureData = {};
+        
+    }, [])
+
     const getPlaylistStructuredData = (playlistImg, playlistName, playlistDescription, playlistTracks) => {
         playlistStructureData = {
             "@context": "https://schema.org/",
@@ -42,6 +47,8 @@ const VerticalLibrary = ({ elements }) => {
         })})
         return playlistStructureData;
       };
+
+   
 
     return (
         <Flex

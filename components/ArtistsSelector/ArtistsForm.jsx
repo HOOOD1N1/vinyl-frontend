@@ -36,9 +36,9 @@ const ArtistsForm = ({setChecked, labelText, helperText, colorScheme}) => {
 
     }, [pageIndex]);
 
-    useEffect(() => {
-        setChecked(checkedArtists);
-    }, [checkedArtists])
+    // useEffect(() => {
+    //     setChecked(checkedArtists);
+    // }, [checkedArtists])
 
     const getRightArrows = () => {
         return ( 

@@ -23,6 +23,7 @@ const VerticalElementsList = () => {
 
           for(let playlist of fetchedPlaylists.items) {
 
+
             let tracks = await getPlaylistTracklist(playlist.id)
             playlists.push({
                 title: playlist.name,
@@ -52,20 +53,6 @@ const VerticalElementsList = () => {
   
           console.log("playlists trackist: ", JsonRes)
           return JsonRes;
-      }
-  
-      const getPlaylistImage = async(playlistId) => {
-        const requestOptions = {
-          method: 'GET',
-          headers: {
-              Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
-          }
-        }
-          const res = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/images`, requestOptions);
-  
-          const JsonRes = await res.json();
-  
-          console.log("playlists image is: ", JsonRes)
       }
 
 

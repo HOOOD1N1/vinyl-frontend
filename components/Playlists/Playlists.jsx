@@ -8,19 +8,19 @@ function Playlists() {
     const [isOpen, setIsOpen] = useState(false);
     const [userIsAuth, setIsUserAuth] = useState(getToken());
   
-    // const handleClick = () => {
-    //   setIsOpen(true);
-    // };
+    const handleClick = () => {
+      setIsOpen(true);
+    };
   
-    // const handleFileChange = (event) => {
-    //   const pickedFile = event.target.files[0];
-    //   if (pickedFile.name.endsWith("xml") || pickedFile.name.endsWith("xspf")) {
-    //     setFile(pickedFile);
-    //     setIsOpen(false);
-    //   } else {
-    //     alert("Only XML and XSPF files are allowed.");
-    //   }
-    // };
+    const handleFileChange = (event) => {
+      const pickedFile = event.target.files[0];
+      if (pickedFile.name.endsWith("xml") || pickedFile.name.endsWith("xspf")) {
+        setFile(pickedFile);
+        setIsOpen(false);
+      } else {
+        alert("Only XML and XSPF files are allowed.");
+      }
+    };
   
     // const handleSubmit = async () => {
     //     if (!file) {
@@ -70,7 +70,6 @@ function Playlists() {
 
       const JsonRes = await res.json();
       
-      // console.log("Res is ", await res.json())
       sessionStorage.setItem('spotify_user_data', JSON.stringify({'display_name': JsonRes.display_name, 'user_id': JsonRes.id, 'uri': JsonRes.uri}))
 
     }
@@ -139,7 +138,7 @@ function Playlists() {
             type="submit"
             padding="20px"
             alignSelf="flex-start"
-          //   onClick={handleClick}
+            onClick={handleClick}
           >
             Add Playlist
           </Button>
@@ -147,7 +146,7 @@ function Playlists() {
             <input
               type="file"
               accept="application/xml"
-              // onChange={handleFileChange}
+              onChange={handleFileChange}
             />
           )}
           {file && (
