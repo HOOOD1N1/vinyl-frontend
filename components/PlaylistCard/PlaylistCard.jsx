@@ -7,17 +7,12 @@ import Elements from "../Elements/Elements";
 import defaultImage from "../../assets/image.jpg";
 import TrackCard from "../TrackCard/TrackCard";
 
-const PlaylistCard = ({ element }) => {
+const PlaylistCard = ({ element, artists, artistsNames }) => {
     
     const [showVinyls, setShowVinyls] = useState(false);
     const [showTracks, setShowTracks] = useState(false)
     const [vinyls, setVinyls] = useState([]);
     const [recomendationIsLoading, setRecomendationIsLoading] = useState([false]);
-
-    useEffect(() => {
-        
-        console.log("Playlist image is ", element.image)
-    })
 
 
 const onHideTracksClicked = () => {
@@ -51,72 +46,64 @@ const onShowTracksClicked = () => {
         )
     }
 
-    const preferencesURL = "http://127.0.0.1:8081/recommendation/preferences";
 
-    async function getArtistGenres(artist) {
+    const getGenres = async() => {
         const requestOptions = {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
             }
+        }
+          console.log('GET GEnres')
+          const res = await fetch(`https://api.spotify.com/v1/artists?ids=${artists}`, requestOptions);
+    
+          const JsonRes = await res.json();
+
+          let genres = [];
+
+          for(let i = 0; i < JsonRes.artists.length; i ++) {
+            genres.push(...JsonRes.artists[i].genres);
           }
-            const res = await fetch(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, requestOptions);
-    
-            const JsonRes = await res.json();
-    
-            console.log("Artist is: ", JsonRes)
-            return JsonRes;
+
+         let uniqueArray = [...new Set(genres)];
+         console.log("GENRES ", uniqueArray)
+
+         return uniqueArray;
     }
+
+    const preferencesURL = "http://127.0.0.1:8081/recommendation/preferences";
 
     async function getRecommendation() {
 
-        setShowVinyls(true)
+        let genres = await getGenres();
+        console.log("My genres are", genres)
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "favoriteGenres": genres,
+                "favoriteArtists": artistsNames,
+                "pageSize": 5,
+                "limit": 100,
+                "pageIndex": Math.floor(Math.random() * 3)
+            })
+        }
 
-        let genres = []
-        let authors = []
+        setRecomendationIsLoading(true);
+        const res = await fetch(preferencesURL, requestOptions);
 
-        // getArtistGenres()
-
-        // element.tracks.map((track, i) => {
-            
-        // })
-        
-        
-        
-        // for(let index = 0; index < element.tracks.length; index++) {
-
-        //     let track = element['tracks'][index]
-
-        //     if (!genres.includes(track['genre'])) {
-        //         genres.push(track['genre'])
-        //     }
-
-        //     if (!authors.includes(track['creator'])) {
-        //         authors.push(track['creator'])
-        //     }
-        // }
-
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //         "favoriteGenres": genres,
-        //         "favoriteArtists": authors,
-        //         "pageSize": 5,
-        //         "limit": 100,
-        //         "pageIndex": Math.floor(Math.random() * 3)
-        //     })
-        // }
-
-        // setRecomendationIsLoading(true);
-        // const res = await fetch(preferencesURL, requestOptions);
-        // res.json()
-        // .then(res => {
-        //     console.log(res)
-        //     loadVinyls(res.results)
-        // })
-        // .catch(err => console.log(err))
+        res.json()
+        .then(res => {
+            console.log(res)
+            loadVinyls(res.records)
+        })
+        .catch(err => console.log(err))
     }
+
+    useEffect(() => {
+        console.log("Apare de: ", artists)
+        console.log("Numele artistilor sunt", artistsNames)
+    }, [])
 
     async function loadVinyls(fetchData) {
         const vinyls = fetchData
@@ -164,7 +151,10 @@ const onShowTracksClicked = () => {
                         type='submit'
                         alignSelf={'center'}
                         justifySelf={'flex-start'}
-                        onClick={getRecommendation(element.name)}
+                        onClick={ () => {
+                            setShowVinyls(true)
+                            getRecommendation(element.name);
+                        }}
                     >
                         Get recommandations based on this playlist
                     </Button>

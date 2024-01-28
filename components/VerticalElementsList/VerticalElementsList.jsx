@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import VerticalLibrary from "./VerticalLibrary.jsx";
 
-const VerticalElementsList = () => {
+const VerticalElementsList = ({elements, setElements}) => {
 
-    const [elements, setElements] = useState([])
     
+  let playlistStructureData = {};
 
     const getUserPlaylists = async () => {
         const requestOptions = {
@@ -14,7 +14,7 @@ const VerticalElementsList = () => {
               Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
           }
         }
-        const res = await fetch(`https://api.spotify.com/v1/me/playlists`, requestOptions);
+        const res = await fetch(`https://api.spotify.com/v1/me/playlists?offset=0&limit=1`, requestOptions);
         
         console.log("Enters")
           const fetchedPlaylists = await res.json();
@@ -24,14 +24,16 @@ const VerticalElementsList = () => {
           for(let playlist of fetchedPlaylists.items) {
 
 
-            let tracks = await getPlaylistTracklist(playlist.id)
-            playlists.push({
+          await getPlaylistTracklist(playlist.id).then(tracks => {
+              playlists.push({
                 title: playlist.name,
                 id: playlist.id,
                 image: playlist.images[0],
                 tracks: tracks.items,
                 description: playlist.description
             });
+            })  
+           
           }
   
           console.log("playlists ARE: ", playlists)
@@ -47,17 +49,17 @@ const VerticalElementsList = () => {
               Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
           }
         }
-          const res = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, requestOptions);
+          const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, requestOptions);
   
-          const JsonRes = await res.json();
+          const JsonResult = await result.json();
   
-          console.log("playlists trackist: ", JsonRes)
-          return JsonRes;
+          console.log("playlists trackist: ", JsonResult)
+          return JsonResult;
       }
 
 
     useEffect(() => {
-
+      console.log("VerticalElementsList is rerendered")
         
         getUserPlaylists();
 
@@ -69,7 +71,7 @@ const VerticalElementsList = () => {
     return (
 
         <Flex alignItems="flex-start" direction="column">
-            <VerticalLibrary elements={elements} />
+            <VerticalLibrary elements={elements} playlistStructureData={playlistStructureData}/>
         </Flex>
     )
 }

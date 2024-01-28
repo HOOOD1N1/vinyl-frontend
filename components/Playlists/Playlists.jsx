@@ -7,6 +7,7 @@ function Playlists() {
     const [file, setFile] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [userIsAuth, setIsUserAuth] = useState(getToken());
+    const [elements, setElements] = useState([])
   
     const handleClick = () => {
       setIsOpen(true);
@@ -66,6 +67,7 @@ function Playlists() {
             Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("spotify_token")).access_token}`
         }
     }
+      console.log('ENTERs')
       const res = await fetch('https://api.spotify.com/v1/me', requestOptions);
 
       const JsonRes = await res.json();
@@ -110,15 +112,13 @@ function Playlists() {
     }
 
     useEffect(() => {
-      setIsUserAuth(getToken());
-
       getUserData();
+      console.log("Enters Playlists Page")
 
     }, []);
 
   function getToken() {
       const userLocalStorage = JSON.parse(localStorage.getItem('user'));
-      console.log("userStorage is ", userLocalStorage)
       let result;
       if(userLocalStorage){
           result = (userLocalStorage.message === 'USER_IS_AUTHENTICATED' || userLocalStorage.message === 'USER_REGISTERED_SUCCESSFULLY' || userLocalStorage.message === 'USER_ALREDY_REGISTERED') ? true : false;
@@ -160,7 +160,7 @@ function Playlists() {
               Submit
             </Button>
           )}
-          <VerticalElementsList />
+          <VerticalElementsList elements={elements} setElements={setElements}/>
         </Stack>
         : <Navigate to="/" replace={true}/> }
       </Fragment>
