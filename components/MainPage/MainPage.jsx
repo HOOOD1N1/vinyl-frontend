@@ -124,7 +124,8 @@ function MainPage() {
                 "yearRangeStart": yearRange[0],
                 "yearRangeEnd": yearRange[1],
                 "pageSize": pageSize,
-                "pageIndex": currentPage
+                "pageIndex": currentPage,
+                "shuffle": true
             })
         };
 
@@ -137,7 +138,6 @@ function MainPage() {
                     setErrors(true)
                 } else {
                     setTotalCount(res.totalRecords)
-                    console.log("Vinyls are: ", res.records)
                     loadVinyls(res.records)
                     setErrors(false);
                 }
