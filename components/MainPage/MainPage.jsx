@@ -137,6 +137,7 @@ function MainPage() {
                     setErrors(true)
                 } else {
                     setTotalCount(res.totalRecords)
+                    console.log("Vinyls are: ", res.records)
                     loadVinyls(res.records)
                     setErrors(false);
                 }
