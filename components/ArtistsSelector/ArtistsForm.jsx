@@ -150,7 +150,7 @@ const ArtistsForm = ({setChecked, labelText, helperText, colorScheme }) => {
         hasError ?   <Text fontSize='2xl' color='tomato'>An error has occured, please try again.</Text> :
     <FormControl as='fieldset' style={{textAlign:"center"}} mt={5}>
         <FormLabel as='legend' style={{textAlign:"center"}}>{labelText}</FormLabel>
-        <FormHelperText mb={10}>{helperText}</FormHelperText>
+        <FormHelperText mb={5}>{helperText}</FormHelperText>
         <div style={{display: "inline"}}>
         {showLeftArrow ? getLeftArrows() : null}
         <SimpleGrid columns={5} spacing={5}>

@@ -134,7 +134,7 @@ const GenreForm = ({setChecked, labelText, helperText, colorScheme}) => {
             }
             </Stack>
         </CheckboxGroup>
-        <FormHelperText mt={5} mb={10}>{helperText}</FormHelperText>
+        <FormHelperText mt={5} mb={5}>{helperText}</FormHelperText>
     </FormControl> 
 )
 }
