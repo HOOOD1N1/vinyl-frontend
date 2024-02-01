@@ -7,7 +7,7 @@ import defaultImage from "../../assets/image.jpg";
 const ArtistsForm = ({setChecked, labelText, helperText, colorScheme }) => {
     const pageSize = 5;
     const artistsLimit = 50;
-    const countURL = "http://127.0.0.1:8081/recommendation/top";
+    const countURL = "https://recommendation-api-0q3l.onrender.com/recommendation/top";
     var artistStructureData = {};
 
     const [hasError, setErrors] = useState(false);
