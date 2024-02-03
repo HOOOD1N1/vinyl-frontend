@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 
-const TrackCard = ({trackName,trackAuthor, trackImage}) => {
+const TrackCard = ({trackName,trackAuthor, trackImage, artistUrl, albumUrl}) => {
 
 
     return (
@@ -20,8 +20,8 @@ const TrackCard = ({trackName,trackAuthor, trackImage}) => {
                 as="h4"
                 isTruncated
             >
-                Title: 
-                {trackName}
+                <a href={albumUrl} target='_blank'>Title: 
+                {trackName}</a>
             </Text>
             <Text
                 fontWeight={'bold'}
@@ -31,8 +31,8 @@ const TrackCard = ({trackName,trackAuthor, trackImage}) => {
                 lineHeight="tight"
                 isTruncated
                 >
-                Author: 
-                {trackAuthor}
+               <a href={artistUrl} target='_blank'> Artist: 
+                {trackAuthor}</a>
             </Text>
 
         </Box>

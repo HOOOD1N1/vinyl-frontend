@@ -54,12 +54,14 @@ const onShowTracksClicked = () => {
                     element.tracks.map((track, i) => {
                         let x = track.track;
                         let y = x.artists[0].name;
+                        let artistUrl = x.artists[0].external_urls.spotify;
+                        let albumUrl = x.album.external_urls.spotify;
                         let image = x.album.images[1].url
                         console.log("My track is ", x)
                         return (
                             <Box className="margin2 elementsBox" key={String(element.id) + i + track.title} mr="4">
                                 <TrackCard className="css-uqsj0l chakra-heading"
-                                 key={track.track.name + i + track.track.artists[0]} trackName={x.name} trackAuthor={y} trackImage={image}/>
+                                 key={track.track.name + i + track.track.artists[0]} trackName={x.name} trackAuthor={y} trackImage={image} artistUrl={artistUrl} albumUrl={albumUrl}/>
                             </Box>
                         )})
                 }
