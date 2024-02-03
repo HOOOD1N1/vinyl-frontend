@@ -120,7 +120,9 @@ function Playlists() {
         >
           Add Playlist file
         </Button>
+        <a href="https://open.spotify.com/" target="_blank">
         <Image src={spotifyImage} alt='spotify logo' minHeight='100px' minWidth='100px' objectFit={'contain'} width={'200px'}/>
+        </a>
         </Flex>
           <VerticalElementsList elements={elements} setElements={setElements}/>
         </Stack> : (<Box width={'500px'} alignSelf={'center'}>

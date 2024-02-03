@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Box, Flex, Text, Link, Spinner, Center} from "@chakra-ui/react";
+import { Button, Box, Flex, Text, Link, Spinner, Center, Image} from "@chakra-ui/react";
 import { useState } from "react";
 import "./PlaylistCard.css";
 import '../Elements/ElementsLibrary.css'
@@ -7,7 +7,7 @@ import Elements from "../Elements/Elements";
 import defaultImage from "../../assets/image.jpg";
 import TrackCard from "../TrackCard/TrackCard";
 
-const PlaylistCard = ({ element, artists, artistsNames }) => {
+const PlaylistCard = ({ element, artists, artistsNames, playlistUrl }) => {
     
     const [showVinyls, setShowVinyls] = useState(false);
     const [showTracks, setShowTracks] = useState(false)
@@ -129,6 +129,7 @@ const onShowTracksClicked = () => {
     }
 
     useEffect(() => {
+        console.log("ELEMENT ESTE ", element)
         console.log("Apare de: ", artists)
         console.log("Numele artistilor sunt", artistsNames)
     }, [])
@@ -156,8 +157,9 @@ const onShowTracksClicked = () => {
         <>
         <Flex className="playlistCardFlex ">
 
-            <img className='playlistImage' src={element.image.url} />
-
+            <a href={playlistUrl} target="_blank">
+            <Image className='playlistImage' src={element.image.url} width={'300px'} height={'300px'} objectFit={"contain"} />
+            </a>
             <Box display="flex" flexDirection="column" p="4" alignItems={'flex-start'} justifyContent={'space-between'}>
 
                 <Text
