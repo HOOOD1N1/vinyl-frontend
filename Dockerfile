@@ -20,7 +20,7 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # Copy the built app from the build stage
-COPY --from=build /VINYL-FRONTEND/build /usr/share/nginx/html
+COPY --from=build /VINYL-FRONTEND/dist /usr/share/nginx/html
 
 # Expose the port Nginx is listening on
 EXPOSE 8080
