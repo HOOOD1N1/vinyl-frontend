@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams, useLocation,useSearchParams } from 'react-router-dom'
+import { useSearchParams, useLocation } from 'react-router-dom'
 import { Stack, Button, Spinner, Heading, Text, Center } from "@chakra-ui/react";
 import Elements from "../Elements/Elements";
 import ArtistsSelector from "../ArtistsSelector/ArtistsSelector";
