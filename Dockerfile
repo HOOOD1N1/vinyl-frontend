@@ -25,7 +25,7 @@ COPY ngnix.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /VINYL-FRONTEND/dist /usr/share/nginx/html
 
 # Expose the port Nginx is listening on
-EXPOSE 8080
+EXPOSE 80
 
 # Start Nginx when the container has provisioned.
 CMD ["nginx", "-g", "daemon off;"]
