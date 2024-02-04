@@ -11,7 +11,7 @@ import YearSelector from "../YearSelector/YearSelector";
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function MainPage() {
-    const pageSize = 10;
+    const pageSize = 5;
     const preferencesURL = "https://recommendation-api-0q3l.onrender.com/recommendation/preferences";
 
     const [hasError, setErrors] = useState(false);
