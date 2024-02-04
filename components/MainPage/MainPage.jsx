@@ -81,6 +81,44 @@ function MainPage() {
 
     useEffect(() => {
         setSpotifySessionData()
+        if(searchParams.get("oauth_verifier") && searchParams.get("oauth_token")) {
+
+        
+            const fetchData = async () => {
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `${searchParams.get("oauth_token")}`
+                    }
+                }
+    
+                const access_token_url = `https://recommendation-api-0q3l.onrender.com/discogs/access_token?verifier=${searchParams.get("oauth_verifier")}`
+                const res = await fetch(access_token_url, requestOptions)
+                console.log("CHECK discogs")
+                return res
+            }
+    
+            const oauth_verifier = searchParams.get("oauth_verifier")
+    
+            const getStatus = async () => {
+                if (oauth_verifier) {
+                    const res = await fetchData()
+    
+                    res.json().then(res => {
+                        if (res) {
+                            console.log("RES is ", res)
+                            sessionStorage.setItem("discog_token", JSON.stringify({'userToken': res.userToken, 'userTokenSecret': res.userTokenSecret}))
+    
+                            setTimeout(() => {
+                              }, 3000);
+                        }
+                    })
+                        .catch(console.error);
+                }
+            }
+    
+            getStatus()
+        }
     }, [])
 
     useEffect(() => {
