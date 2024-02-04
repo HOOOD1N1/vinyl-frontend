@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams, useLocation } from 'react-router-dom'
+import { useSearchParams, useLocation,useSearchParams } from 'react-router-dom'
 import { Stack, Button, Spinner, Heading, Text, Center } from "@chakra-ui/react";
 import Elements from "../Elements/Elements";
 import ArtistsSelector from "../ArtistsSelector/ArtistsSelector";
@@ -27,6 +27,7 @@ function MainPage() {
     const [totalCount, setTotalCount] = useState(0);
     const [showArtists, setShowArtists] = useState(false);
     const location = useLocation()
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const artistsLimit = 50;
 
