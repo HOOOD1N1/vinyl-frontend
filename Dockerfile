@@ -19,6 +19,8 @@ RUN npm run build
 # Stage 2: Serve the app with Nginx
 FROM nginx:stable-alpine
 
+COPY ngnix.conf /etc/nginx/conf.d/default.conf
+
 # Copy the built app from the build stage
 COPY --from=build /VINYL-FRONTEND/dist /usr/share/nginx/html
 
