@@ -80,7 +80,7 @@ function Profile() {
 
     const onSpotifySubmit = () => {
         if(!sessionStorage.getItem('spotify_token')) {
-            window.location.replace("http://localhost:8888/spotify/login");
+            window.location.replace("https://virewade-node-backend.onrender.com/spotify/login");
         } else {
             sessionStorage.removeItem('spotify_token')
             window.location.reload()
