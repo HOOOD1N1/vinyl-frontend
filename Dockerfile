@@ -23,7 +23,7 @@ FROM nginx:stable-alpine
 COPY --from=build /VINYL-FRONTEND/build /usr/share/nginx/html
 
 # Expose the port Nginx is listening on
-EXPOSE 80
+EXPOSE 8080
 
 # Start Nginx when the container has provisioned.
 CMD ["nginx", "-g", "daemon off;"]
